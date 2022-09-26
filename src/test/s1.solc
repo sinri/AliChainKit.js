@@ -1,0 +1,45 @@
+pragma solidity ^0.4.0;
+
+contract CreditManager {
+    int256 creditLimit = 1000000000;   // the issue limit
+    int256 issueAmount = 0;           // the issue total amount
+    identity admin;                    // the administrator in contract
+
+    mapping(identity=>int256) credit;
+
+    event IssueEvent(identity indexed to, int256 indexed value);
+    event TransferEvent(identity indexed from, identity indexed to, int256 indexed value);
+
+    function CreditManager() {
+        admin = msg.sender;
+    }
+
+    // modifier
+    modifier onlyAdmin() {
+        require(msg.sender == admin,"Permission denied");
+        _;
+    }
+
+    // issue credit and only admin can
+    function Issue(identity account, int256 value) public onlyAdmin returns(bool) {
+        // the value should bigger than 0, and issueAmount add value should small than issueAmount
+        require(issueAmount + value <= creditLimit && issueAmount + value > issueAmount && value > 0, "Invalid value!");
+        credit[account] += value;
+        issueAmount += value;
+        IssueEvent(account,value);
+        return true;
+    }
+
+    function Transfer(identity account,int256 value) public returns(bool) {
+        require(credit[msg.sender] >= value, "balance not enough!");
+        require(value > 0 && value <= creditLimit, "Invalid value!");
+        credit[msg.sender] -= value;
+        credit[account] += value;
+        TransferEvent(msg.sender,account,value);
+        return true;
+    }
+
+    function Query(identity account) public returns(int256) {
+        return credit[account];
+    }
+}

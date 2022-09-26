@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@alipay/mychain": "^0.3.8",
+    "@alipay/solc": "^0.1.12",
+    "solc": "^0.8.14"
+  }
+}
