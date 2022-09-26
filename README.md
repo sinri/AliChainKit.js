@@ -1,7 +1,9 @@
-# LEQEE NFT JS
+# 蚂蚁区块链JS工具
 
-体验链PEM证书生成
+## 在试用链上玩耍
 
-```bash
-openssl ec -in user.key -passin pass:2022Kugatsu23 -passout pass:2022Kugatsu23 -aes256 -out user.pem
-```
+1. 申请CLIENT认证文件
+2. 申请账号认证文件
+3. 体验链PEM证书生成（以`2022Kugatsu23`
+   为密码：`openssl ec -in user.key -passin pass:2022Kugatsu23 -passout pass:2022Kugatsu23 -aes256 -out user.pem`）
+4. 配置一系列东西，跑测试
